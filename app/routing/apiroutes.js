@@ -26,6 +26,6 @@ module.exports = function(app) {
             name: matchName,
             photo: matchPhoto,
         })
-        friendsList.push(request.body);
+        friendsList.push(response.body);
     });
 }
