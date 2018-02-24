@@ -3,10 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
+    <title>Friend Finder</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Survey</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
+
     <style>
         body {
             background-color: rgb(92, 146, 133);
@@ -26,7 +31,7 @@
     </style>
     <!-- Chosen -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
 </head>
 
 <body>
@@ -169,7 +174,7 @@
                 <br>
 
                 <div class="row">
-                    <p><a class="btn btn-warning btn-lg" id="submit_button" role="button" type="submit">Submit</a></p>
+                    <button type="submit" class="btn btn-warning btn-block" id="submit_button"><i class="fa fa-check-circle" aria-hidden="true"></i>Submit</button>
                 </div>
 
                 <hr>
@@ -193,7 +198,7 @@
                         </div>
                         <div class="modal-body">
                             <h2 id="match-name"></h2>
-                            <img id="match-img" src="" alt="" width="60%" height="auto">
+                            <img id="match-img" src="" alt="Best Match Photo" width="60%" height="auto">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -209,9 +214,6 @@
 
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
     <script type="text/javascript">
         // Chosen CSS
         var config = {
@@ -259,7 +261,7 @@
             // If all required fields are filled
             if (validateForm()) {
                 // Create an object for the user"s data
-                var newUser = {
+                var userData = {
                     name: $("#name").val(),
                     photo: $("#photo").val(),
                     scores: [
@@ -277,7 +279,7 @@
                 };
 
                 // AJAX post the data to the friends API.
-                $.post("/api/friends", newUser, function(data) {
+                $.post("/api/friends", userData, function(data) {
 
                     // Grab the result from the AJAX post so that the best match's name and photo are displayed.
                     $("#match-name").text(data.name);
@@ -290,7 +292,7 @@
                     console.log("inside of done ", data.name)
                 });
             } else {
-                alert("Please fill out all fields before submitting!");
+                alert("Please fill in all fields before continuing.");
             }
         });
     </script>
